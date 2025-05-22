@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
-    const files = formData.getAll('files');
+    const files = formData.getAll('files') as File[];
     
     if (!files || files.length === 0) {
       return NextResponse.json(
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     // For example, upload them to a storage service, process them, etc.
     
     // For this example, we'll just log the file info and return success
-    const fileInfo = files.map((file: any) => ({
+    const fileInfo = files.map((file: File) => ({
       name: file.name,
       type: file.type,
       size: file.size,
